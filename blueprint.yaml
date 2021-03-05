@@ -1,6 +1,6 @@
 blueprint:
   name: Door Sensor-activated Switch
-  description: Turn on a Switch when door is opened.
+  description: Turn on a switch when door is opened.
   domain: automation
   input:
     doorsensor_entity:
@@ -11,15 +11,15 @@ blueprint:
 # My sensors has device_class opening but it's commented 
 # for now since not every sensor uses 'opening' as default
 #          device_class: opening
-    light_target:
-      name: Light
+    switch_target:
+      name: Switch
       selector:
         target:
           entity:
             domain: switch
     door_closed_wait:
       name: Wait time
-      description: Time to leave the light on after door is closed
+      description: Time to leave the switch on after door is closed
       default: 120
       selector:
         number:
@@ -39,7 +39,7 @@ trigger:
 
 action:
   - service: switch.turn_on
-    target: !input light_target
+    target: !input switch_target
   - wait_for_trigger:
       platform: state
       entity_id: !input doorsensor_entity
@@ -47,4 +47,4 @@ action:
       to: "off"
   - delay: !input door_closed_wait
   - service: switch.turn_off
-    target: !input light_target
+    target: !input switch_target
