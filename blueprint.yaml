@@ -16,6 +16,7 @@ blueprint:
       selector:
         target:
           entity:
+            domain: switch
     door_closed_wait:
       name: Wait time
       description: Time to leave the light on after door is closed
